@@ -24,3 +24,49 @@ Quando um cenário de alta demanda for detectado, o sistema acionará mecanismos
 - **Escalabilidade horizontal automática**
 - **Balanceamento inteligente de carga**
 - **Otimização de recursos computacionais**
+
+# Como rodar o projeto Overload-Prediction localmente
+
+## 1. Clone o repositório
+
+```bash
+git clone https://github.com/Renan-amc/Overload-Prediction.git
+```
+
+## 2. Entrar na pasta do projeto
+
+```bash
+cd Overload-Prediction
+```
+
+## 3. Instalar dependências (NECESSÁRIO COMPOSER INSTALADO)
+
+```bash
+composer install
+```
+
+## 4. Configurar o arquivo .env
+
+```bash
+cp .env.example .env
+```
+
+## 5. Gerar a chave da aplicação
+
+```bash
+php artisan key:generate
+```
+
+## 6. Rodar as migrations e seeders (se houver)
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+
+## 7. Rodar o servidor local
+
+```bash
+php artisan serve
+```
