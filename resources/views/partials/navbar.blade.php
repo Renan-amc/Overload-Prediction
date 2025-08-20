@@ -5,6 +5,21 @@
                 <img src="{{ asset('assets/images/logo_branco.png') }}" width="150" height="auto" alt="">
             </a>
         </div>
+        <div class="col-auto d-flex justify-content-center align-items-center">
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" 
+                href="{{ route('home') }}">
+                Home
+            </a>
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" href="#">
+                Comprar Ingressos
+            </a>
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" href="#">
+                Sobre
+            </a>
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" href="#">
+                Contato
+            </a>
+        </div>
         <div class="col-auto">
             <div class="d-flex justify-content-end align-items-center">
                  <!-- Foto do usuário -->
