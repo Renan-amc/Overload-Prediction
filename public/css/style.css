@@ -14,3 +14,34 @@ main {
 .text-yellow {
     color: #f4eb4a;
 }
+
+.nav-link {
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.1);
+}
+
+.carousel-inner {
+    height: 450px;
+}
+
+.carousel-img {
+    height: 100%;
+    object-fit: contain; 
+    object-position: center center;
+}
+
+@media (max-width: 768px) {
+    .carousel-inner {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-inner {
+        height: 150px;
+    }
+}
