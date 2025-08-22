@@ -12,5 +12,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Home
 Route::get('/', [MainController::class, 'index'])->name('home');
 
+// Ingressos
 
+Route::get('/ingressos', [MainController::class, 'indexIngressos'])->name('comprarIngressos');
 
+?>

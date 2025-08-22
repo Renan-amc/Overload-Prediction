@@ -19,13 +19,13 @@
             {{-- imagens --}}
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/black_sabbath.png') }}" alt="First slide">
+                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/black_sabbath.png') }}" alt="Slide Black Sabbath">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/soad.png') }}" alt="Second slide">
+                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/soad.png') }}" alt="Slide System of a down">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/gojira.png') }}" alt="Third slide">
+                    <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/gojira.png') }}" alt="Slide Gojira">
                 </div>
             </div>
 

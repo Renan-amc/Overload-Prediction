@@ -10,7 +10,8 @@
                 href="{{ route('home') }}">
                 Home
             </a>
-            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" href="#">
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" 
+                href="{{ route('comprarIngressos') }}">
                 Comprar Ingressos
             </a>
             <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" href="#">
