@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
     <body>
+        {{-- Tela de Loading --}}
+        @include('partials.loading')
+
         {{-- Header --}}
         @if(!Request::is('login'))
             @include('partials.navbar')
@@ -25,7 +28,8 @@
         @if(!Request::is('login'))
             @include('partials.footer')
         @endif
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        @include('partials.js.jsLoading')
     </body>
 </html>

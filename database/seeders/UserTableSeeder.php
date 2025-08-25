@@ -17,12 +17,14 @@ class UserTableSeeder extends Seeder
             [
                 'username' => 'renanzin@gmail.com',
                 'password' => bcrypt('123456'),
-                'created_at' => date('Y-m-d H:i:s')
+                'created_at' => date('Y-m-d H:i:s'),
+                'image' => 'users/renan_couto.png'
             ],
             [
                 'username' => 'munera@gmail.com',
                 'password' => bcrypt('123456'),
-                'created_at' => date('Y-m-d H:i:s')
+                'created_at' => date('Y-m-d H:i:s'),
+                'image' => 'users/lucas_muner.png'
             ],
         ]);
     }

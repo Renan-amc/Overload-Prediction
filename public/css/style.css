@@ -21,6 +21,7 @@ main {
 }
 
 .nav-link:hover {
+    border: 3px solid rgb(183, 83, 207);
     transform: scale(1.1);
 }
 
@@ -32,6 +33,24 @@ main {
     height: 100%;
     object-fit: contain; 
     object-position: center center;
+}
+
+.dark-placeholder::placeholder {
+    color: white !important;
+    opacity: 1;
+}
+
+#loading-screen {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    pointer-events: all;
+    display: flex !important;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none !important;
 }
 
 @media (max-width: 768px) {
