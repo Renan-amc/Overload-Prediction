@@ -13,21 +13,24 @@ class TicketsSeeder extends Seeder
      */
     public function run(): void
     {
-        Ticket::create([
+        Ticket::firstOrCreate([
             'event_id' => 1,
             'type' => 'Pista',
+        ], [
             'price' => 120.00,
         ]);
 
-        Ticket::create([
+        Ticket::firstOrCreate([
             'event_id' => 2,
             'type' => 'VIP',
+        ], [
             'price' => 350.00,
         ]);
 
-        Ticket::create([
+        Ticket::firstOrCreate([
             'event_id' => 3,
             'type' => 'Meia-entrada',
+        ], [
             'price' => 60.00,
         ]);
     }

@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
+        $users = [
             [
                 'username' => 'renanzin@gmail.com',
                 'password' => bcrypt('123456'),
@@ -26,6 +26,12 @@ class UserTableSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'image' => 'users/lucas_muner.png'
             ],
-        ]);
+        ];
+
+        foreach ($users as $user) {
+            if (!DB::table('users')->where('username', $user['username'])->exists()) {
+                DB::table('users')->insert($user);
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-danger btn-lg me-2 rounded-circle"><i class="fa fa-minus"></i></button>
-                                <span class="fw-bold fs-3">0</span>
+                                <span class="fw-bold fs-3">0 </span>
                                 <button class="btn btn-success btn-lg ms-2 rounded-circle"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
