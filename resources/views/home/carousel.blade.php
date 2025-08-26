@@ -1,4 +1,4 @@
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="max-width: 1280px; margin: 0 auto; height:auto;">
 
     {{-- indicadores --}}
     <div class="carousel-indicators">
@@ -11,25 +11,36 @@
     </div>
 
     {{-- imagens --}}
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/black_sabbath.png') }}" alt="First slide">
+    <div class="carousel-inner" style="height:auto;">
+        <div class="carousel-item active" style="height:auto;">
+            <img class="d-block w-100" 
+                 src="{{ asset('assets/images/carousel/black_sabbath.png') }}" 
+                 alt="First slide"
+                 style="width:100%; height:auto; display:block;">
         </div>
-        <div class="carousel-item">
-            <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/soad.png') }}" alt="Second slide">
+        <div class="carousel-item" style="height:auto;">
+            <img class="d-block w-100" 
+                 src="{{ asset('assets/images/carousel/soad.png') }}" 
+                 alt="Second slide"
+                 style="width:100%; height:auto; display:block;">
         </div>
-        <div class="carousel-item">
-            <img class="d-block w-100 carousel-img" src="{{ asset('assets/images/gojira.png') }}" alt="Third slide">
+        <div class="carousel-item" style="height:auto;">
+            <img class="d-block w-100" 
+                 src="{{ asset('assets/images/carousel/gojira.png') }}" 
+                 alt="Third slide"
+                 style="width:100%; height:auto; display:block;">
         </div>
     </div>
 
     {{-- controles --}}
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Próximo</span>
-    </button>
+    <div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
+    </div>
 </div>
