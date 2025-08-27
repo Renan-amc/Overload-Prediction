@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ Route::middleware([CheckIfLogged::class])->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/comprar-ingressos', [TicketController::class, 'index'])->name('buy-tickets');
+
+    Route::get('/sobre', [AboutController::class, 'index'])->name('about');
 });
 
 

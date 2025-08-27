@@ -1,5 +1,5 @@
 
-<footer class="bg-dark shadow-sm w-100 p-3 text-center">
+<footer class="bg-dark shadow-sm w-100 p-3 text-center z-1">
     <div class="row align-items-center justify-content-center">
         <div class="col-auto">
             {{--<img src="" alt="Logo Notes" style="height: 24px;"> --}}

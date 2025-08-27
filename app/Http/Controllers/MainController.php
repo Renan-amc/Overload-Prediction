@@ -11,9 +11,4 @@ class MainController extends Controller
     {
         return view('home.index');
     }
-
-    public function indexIngressos(): View
-    {
-        return view('comprarIngressos.ingressos');
-    }
 }

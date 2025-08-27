@@ -20,7 +20,8 @@
                 href="{{ route('buy-tickets') }}">
                 Comprar Ingressos
             </a>
-            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" href="#">
+            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" 
+                href="{{ route('about') }}">
                 Sobre
             </a>
             <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" href="#">
