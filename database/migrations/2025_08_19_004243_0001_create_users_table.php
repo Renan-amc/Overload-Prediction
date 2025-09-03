@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username', 50);
-            $table->string('password', 300);
-            $table->dateTime('last_login')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('username', 50);
+                $table->string('password', 300);
+                $table->dateTime('last_login')->nullable();
+                $table->string('image')->nullable(); // já adiciona a coluna usada no seeder
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

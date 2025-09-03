@@ -24,9 +24,6 @@
                 href="{{ route('about') }}">
                 Sobre
             </a>
-            <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-white rounded-pill" href="#">
-                Contato
-            </a>
         </div>
         <div class="col-auto">
             <div class="d-flex justify-content-end align-items-center">

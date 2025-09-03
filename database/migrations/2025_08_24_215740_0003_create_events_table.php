@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 100);
-            $table->text('description')->nullable();
-            $table->string('location', 150);
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('events')) {
+            Schema::create('events', function (Blueprint $table) {
+                $table->id();
+                $table->string('name', 100);
+                $table->text('description')->nullable();
+                $table->string('location', 150);
+                $table->dateTime('start_date');
+                $table->dateTime('end_date')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -27,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        if (Schema::hasTable('events')) {
+            Schema::dropIfExists('events');
+        }
     }
 };

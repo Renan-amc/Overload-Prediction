@@ -4,31 +4,45 @@
 
 @section('content')
     <div class="container mt-3">
-        <div class="card shadow-sm w-100 mb-1  bg-dark">
+        <div class="card shadow-sm w-100 mb-1 bg-dark">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <form action="{{ route('buy-tickets') }}" method="GET" class="row d-flex align-items-end">
-                        <div class="col-10">
-                            <input type="text" 
-                                name="event" 
-                                class="form-control mt-1 bg-dark text-light border-light dark-placeholder" 
-                                placeholder="Digite o nome do evento" value="{{ request('event') ?? '' }}">
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn btn-success" href=""> Pesquisar</button>
-                        </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    
+                    {{-- Formulário de busca --}}
+                    <form action="{{ route('buy-tickets') }}" method="GET" class="d-flex w-75">
+                        <input type="text" 
+                            name="event" 
+                            class="form-control bg-dark text-light border-light dark-placeholder me-2" 
+                            placeholder="Digite o nome do evento" value="{{ request('event') ?? '' }}">
+                        <button type="submit" class="btn btn-success">Pesquisar</button>
                     </form>
-                    <div class="row d-flex align-items-center me-3">
-                        <div class="col-3">
-                            <a href=""><i class="fa fa-cart-shopping text-warning fs-4"></i></a>
-                        </div>
+
+                    {{-- Carrinho --}}
+                    <div class="ms-3">
+                        @if(session()->has('cart'))
+                            <a href="{{ route('cart.index') }}" class="text-decoration-none text-black">
+                                <span class="fs-4 fw-bold">
+                                    <i class="fa fa-cart-shopping text-warning fs-4">
+                                        ( {{ count(session()->get('cart')) }} )
+                                    </i>
+                                </span>
+                            </a>
+                        @else
+                        <a href="{{ route('cart.index') }}" class="text-decoration-none text-black">
+                            <span class="fs-4 fw-bold text-warning">
+                                <i class="fas fa-shopping-cart fa-x1"></i>
+                                ( 0 )
+                            </span>
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+
+        {{-- Lista de ingressos --}}
         <div class="card shadow-sm w-100 mb-3 bg-dark">
             <div class="card-body">
-                {{-- Mostrar Lista de Ingressos --}}
                 @include('tickets.list')
             </div>
         </div>

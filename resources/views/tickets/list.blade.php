@@ -17,10 +17,21 @@
                         <div class="row">
                             <div class="d-flex justify-content-between align-items-start">
                                 <h5 class="card-title mb-0">{{ $ticket->event->name }}</h5>
-                                <small class="text-white">Data: 
-                                    {{ date('d/m/Y',strtotime($ticket->event->start_date)) }} a 
-                                    {{ date('d/m/Y',strtotime($ticket->event->end_date)) }}
+                            <!-- Verifica se a entrada/saida sao o mesmos dias se são, ele mostra as horas do evento naquele dia  -->
+                                <small class="text-white">
+                                    Data: 
+                                    @php
+                                        $start = \Carbon\Carbon::parse($ticket->event->start_date);
+                                        $end = \Carbon\Carbon::parse($ticket->event->end_date);
+                                    @endphp
+
+                                    @if($start->isSameDay($end))
+                                        {{ $start->format('d/m/Y') }} - {{ $start->format('H:i') }} às {{ $end->format('H:i') }}
+                                    @else
+                                        {{ $start->format('d/m/Y') }} a {{ $end->format('d/m/Y') }}
+                                    @endif
                                 </small>
+
                             </div>
                             <p class="card-text">{{ $ticket->event->description }}</p>
                         </div>
@@ -31,9 +42,13 @@
                                 <h4 class="text-warning mb-0">R$ {{ number_format($ticket->price,2,',','.') }}</h4>
                             </div>
                             <div class="d-flex align-items-center">
-                                <button class="btn btn-danger btn-lg me-2 rounded-circle"><i class="fa fa-minus"></i></button>
-                                <span class="fw-bold fs-3">0 </span>
-                                <button class="btn btn-success btn-lg ms-2 rounded-circle"><i class="fa fa-plus"></i></button>
+                                <form action="{{ route('cart-add') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $ticket->id }}">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-shopping-cart"></i> Adicionar ao carrinho
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
