@@ -45,7 +45,7 @@
                                 <form action="{{ route('cart-add') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $ticket->id }}">
-                                    <button class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-shopping-cart"></i> Adicionar ao carrinho
                                     </button>
                                 </form>

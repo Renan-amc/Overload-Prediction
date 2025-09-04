@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="container mt-3">
+        @include('tickets.alerts')
         <div class="card shadow-sm w-100 mb-1 bg-dark">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">

@@ -3,6 +3,9 @@
 @section('title', 'Comprar Ingressos')
 
 @section('content')
+    <div class="mt-1">
+        @include('tickets.alerts')
+    </div>
     <div class="row my-5">
         <div class="col-md-10 mx-auto">
             <div class="card">
@@ -14,7 +17,7 @@
                         <div class="alert alert-info">
                             Seu carrinho está vazio
                         </div>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Home</a>
+                        <a href="{{ route('home') }}" class="btn btn-primary">Voltar para Home</a>
                     @else
                         <div class="table-responsive border border-2 border-warning shadow-sm">
                             <table class="table table-dark">
@@ -31,6 +34,7 @@
                                     <div class="text-white">
                                     </div>
                                         <tr class="">
+                                            {{-- Mostrar imagem/nome do ingresso --}}
                                             <td>
                                                 <img src="{{ asset('storage/' . $item['image']) }}" 
                                                     alt="{{ $item['name'] }}" 
@@ -42,22 +46,55 @@
                                                     {{ $item['name'] }}
                                                 </span>
                                             </td>
+
+                                            {{-- Atualizar Item --}}
                                             <td scope="row">
-                                                <input 
-                                                    min="1"
-                                                    type="number" 
-                                                    class="form-control w-auto" 
-                                                    value="{{ $item['qty'] }}"
+                                                <form action="{{ route('cart-update') }}" method="post"
+                                                    class="d-flex gap-2"
                                                 >
+                                                    @csrf
+                                                    @method("PUT")
+                                                    <input 
+                                                        type="hidden" name="product_id" 
+                                                        value="{{ $item['id'] }}">
+                                                    <input 
+                                                        min="1"
+                                                        name="qty"
+                                                        type="number" 
+                                                        class="form-control w-auto" 
+                                                        value="{{ $item['qty'] }}"
+                                                    >
+                                                    <button type="submit" class="btn btn-warning">
+                                                        <i class="fas fa-pencil"></i> atualizar                                                
+                                                    </button>
+                                                </form>
                                             </td>
+
+                                            {{-- Mostrar preço unitário do ingresso --}}
                                             <td class="fw-bold">
                                                     {{ $item['price'] }}
                                             </td>
+
+                                            {{-- Mostrar preço subtotal dos ingressos --}}
                                             <td class="fw-bold">
                                                 ${{ $item['price'] * $item['qty'] }}
                                             </td>
+
+
+                                            {{-- Remover Item --}}
                                             <td>
-                                                {{-- botão para remover item do carrinho aqui --}}
+                                                <form action="{{ route('cart-remove') }}" method="post"
+                                                    class="d-flex gap-2"
+                                                >
+                                                    @csrf
+                                                    @method("DELETE")
+                                                    <input 
+                                                        type="hidden" name="product_id" 
+                                                        value="{{ $item['id'] }}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        <i class="fas fa-xmark"></i> remover                                              
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -66,7 +103,7 @@
                                     <tr>
                                         <td colspan="6"
                                             class="text-end fw-bold fs-4">
-                                            Total
+                                            Total :
                                         </td>
                                         
                                         <td colspan="2"
@@ -76,6 +113,20 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <form action="{{ route('cart-clear') }}" method="post"
+                                class="d-flex gap-2"
+                            >
+                                @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash-can"></i> Limpar carrinho                                              
+                                </button>
+                            </form>
+                            <a href="#" class="btn btn-success">
+                                Continuar pro pagamento
+                            </a>
                         </div>
                     @endif
                 </div>

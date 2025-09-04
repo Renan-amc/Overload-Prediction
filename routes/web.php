@@ -28,6 +28,12 @@ Route::middleware([CheckIfLogged::class])->group(function() {
     Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
     
     Route::post('adicionar/carrinho', [CartController::class, 'addToCart'])->name('cart-add');
+    
+    Route::put('atualizar/carrinho', [CartController::class, 'updateCart'])->name('cart-update');
+    
+    Route::delete('remover/carrinho', [CartController::class, 'removeCartItem'])->name('cart-remove');
+    
+    Route::delete('limpar/carrinho', [CartController::class, 'clearCart'])->name('cart-clear');
 });
 
 
