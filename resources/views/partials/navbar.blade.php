@@ -1,5 +1,6 @@
 <nav class="navbar shadow-sm sticky-top navbar-dark bg-dark">
-    <div class="row justify-content-between w-100">
+    <div class="container-xl d-flex justify-content-between"
+        style="max-width: 1800px">
         <div class="col-auto">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="{{ asset('assets/images/logo_branco.png') }}" width="150" height="auto" alt="">
