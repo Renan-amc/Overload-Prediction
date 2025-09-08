@@ -8,7 +8,23 @@
         <div class="card shadow-sm w-100 mb-1 bg-dark">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    
+
+                    {{-- Imagens de fundo de colméias --}}
+                    <img src="{{ asset('assets/images/favo.png') }}" 
+                        alt="Favo"
+                        class="position-fixed"
+                        style="top: 50vh; left: -32vw; width: 60vw; max-width: 900px; opacity: 0.12; z-index: -1; pointer-events: none;">
+
+                    <img src="{{ asset('assets/images/favo.png') }}" 
+                        alt="Favo"
+                        class="position-fixed"
+                        style="top: 4vh; right: -22vw; width: 60vw; max-width: 900px; opacity: 0.12; z-index: -1; pointer-events: none;">
+
+                    <img src="{{ asset('assets/images/favo.png') }}" 
+                        alt="Favo"
+                        class="position-fixed"
+                        style="bottom: 19vh; right: 67vw; width: 70vw; max-width: 900px; opacity: 0.12; z-index: -1; pointer-events: none;">
+                        
                     {{-- Formulário de busca --}}
                     <form action="{{ route('buy-tickets') }}" method="GET" class="d-flex w-75">
                         <input type="text" 

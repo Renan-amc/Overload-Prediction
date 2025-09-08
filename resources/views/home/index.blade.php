@@ -5,7 +5,7 @@
 @section('styles')
     <style>
         body {
-            background-color: #FFC107 !important; /* ou qualquer cor */
+            background-color: #FFC107 !important;
         }
     </style>
 @endsection
@@ -27,11 +27,16 @@
             <div class="container text-warning">
                 <h1>Bem vindo ao BeeTickets</h1>
                 <p>Encontre aqui vários ingresso pros maiores eventos do Brazil. Não fique de fora e já garanta seu ingresso!</p>
-                <a href="{{ route('buy-tickets') }}" class="btn btn-warning text-dark my-3">Procure eventos aqui.</a>
+                <a href="{{ route('buy-tickets') }}" class="btn btn-warning text-dark my-3 fw-bold">Procure eventos aqui.</a>
             </div>
         </section>
 
-        {{-- Mais informações --}}
+        {{-- Lista de ingressos --}}
+        <div class="bg-warning">
+            <div class="card-body">
+                @include('home.list')
+            </div>
+        </div>
         
     </div>
 </div>

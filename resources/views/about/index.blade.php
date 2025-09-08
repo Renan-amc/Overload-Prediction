@@ -57,7 +57,8 @@
                         </div>
                     </div>
                 </div>
-
+                
+                {{-- Imagens de fundo de colméias --}}
                 <img src="{{ asset('assets/images/favo.png') }}" 
                     alt="Favo"
                     class="position-fixed"
