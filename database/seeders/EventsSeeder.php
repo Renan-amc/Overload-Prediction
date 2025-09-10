@@ -45,5 +45,94 @@ class EventsSeeder extends Seeder
                 'image' => 'events/ticket_gojira.png'
             ]
         );
+
+        Event::firstOrCreate(
+            ['name' => 'Nirvana'],
+            [
+                'description' => 'Reviva a energia crua e autêntica do grunge com Nirvana. Com músicas que marcaram gerações e letras intensas, o show promete transportar o público para os anos 90, mostrando por que Nirvana continua sendo um ícone do rock mundial.',
+                'location' => 'Arena Rock Hall',
+                'start_date' => '2025-09-25 21:00:00',
+                'end_date' => '2025-09-25 23:30:00',
+                'image' => 'events/ticket_nirvana.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Limp Bizkit'],
+            [
+                'description' => 'Prepare-se para uma explosão de nu metal com Limp Bizkit. Hits que misturam rap, rock e muita atitude, em uma apresentação energética que vai levantar o público do início ao fim.',
+                'location' => 'Estádio da Cidade',
+                'start_date' => '2025-10-05 20:30:00',
+                'end_date' => '2025-10-05 23:00:00',
+                'image' => 'events/ticket_limpbizkit.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Red Hot Chili Peppers'],
+            [
+                'description' => 'Com uma fusão única de rock, funk e punk, o Red Hot Chili Peppers promete uma apresentação inesquecível. Grandes clássicos e novos sucessos em um show vibrante e cheio de energia.',
+                'location' => 'Parque das Nações',
+                'start_date' => '2025-10-18 19:30:00',
+                'end_date' => '2025-10-18 22:00:00',
+                'image' => 'events/ticket_rhcp.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Kiss'],
+            [
+                'description' => 'O espetáculo lendário do Kiss retorna com sua mistura única de rock, figurinos icônicos e efeitos especiais. Um show histórico que une gerações de fãs e celebra a essência do hard rock.',
+                'location' => 'Estádio Municipal',
+                'start_date' => '2025-11-01 20:00:00',
+                'end_date' => '2025-11-01 22:30:00',
+                'image' => 'events/ticket_kiss.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Radiohead'],
+            [
+                'description' => 'Com sua sonoridade inovadora e letras marcantes, o Radiohead traz um show que mistura introspecção e intensidade. Uma jornada musical que vai emocionar e surpreender o público.',
+                'location' => 'Auditório Nacional',
+                'start_date' => '2025-11-10 20:00:00',
+                'end_date' => '2025-11-10 22:15:00',
+                'image' => 'events/ticket_radiohead.png'
+            ]
+        );   
+
+        Event::firstOrCreate(
+            ['name' => 'Deftones'],
+            [
+                'description' => 'Com seu estilo inconfundível que mescla peso e melodia, Deftones promete um show intenso e atmosférico. Uma experiência única que vai do metal alternativo às nuances mais experimentais.',
+                'location' => 'Teatro das Artes',
+                'start_date' => '2025-11-15 21:00:00',
+                'end_date' => '2025-11-15 23:00:00',
+                'image' => 'events/ticket_deftones.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Scorpions'],
+            [
+                'description' => 'Os clássicos do hard rock alemão ecoam no show do Scorpions. Baladas inesquecíveis e riffs marcantes em uma apresentação que mistura emoção e potência sonora.',
+                'location' => 'Arena Internacional',
+                'start_date' => '2025-11-25 20:30:00',
+                'end_date' => '2025-11-25 23:00:00',
+                'image' => 'events/ticket_scorpions.png'
+            ]
+        );
+
+        Event::firstOrCreate(
+            ['name' => 'Queen'],
+            [
+                'description' => 'Uma celebração ao legado eterno do Queen, com seus maiores clássicos que atravessam gerações. Um espetáculo grandioso que mistura emoção, performance e a genialidade de uma das maiores bandas da história.',
+                'location' => 'Estádio Central',
+                'start_date' => '2025-12-01 20:00:00',
+                'end_date' => '2025-12-01 22:30:00',
+                'image' => 'events/ticket_queen.png'
+            ]
+        );
+
     }
 }

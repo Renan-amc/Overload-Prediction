@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row g-4"> {{-- linha única, com espaçamento entre cards --}}
             @foreach ($tickets as $ticket)
-                <div class="col-md-6 col-lg-4"> {{-- 2 por linha em md, 3 por linha em lg --}}
-                    <a  class="text-decoration-none"
-                        href="{{ route('buy-tickets') }}">
+                    <div class="col-md-6 col-lg-4"> {{-- 2 por linha em md, 3 por linha em lg --}}
+                        <a  class="text-decoration-none"
+                            href="{{ route('buy-tickets') }}">
                             <div class="row g-0 h-100">
                                 <!-- Foto do ingresso -->
                                 <div class="row-md-8p-2 bg-warning">
@@ -39,8 +39,8 @@
                                     </div>
                                 </div>
                             </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
             @endforeach
         </div>
     </div>

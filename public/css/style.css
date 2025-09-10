@@ -20,6 +20,15 @@ main {
     transition: all 0.3s ease;
 }
 
+.list-link {
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.list-link:hover {
+    background-color: gray;
+}
+
 .nav-link:hover {
     border: 3px solid rgb(183, 83, 207);
     transform: scale(1.1);

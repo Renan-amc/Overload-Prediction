@@ -32,7 +32,7 @@
         </section>
 
         {{-- Lista de ingressos --}}
-        <div class="bg-warning">
+        <div class=" bg-warning">
             <div class="card-body">
                 @include('home.list')
             </div>
