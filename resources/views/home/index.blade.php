@@ -2,19 +2,11 @@
 
 @section('title', 'Home')
 
-@section('styles')
-    <style>
-        body {
-            background-color: #FFC107 !important;
-        }
-    </style>
-@endsection
-
 
 @section('content')
-<div class="bg-dark"
-    style="background: linear-gradient(to bottom, #212529, #f9ca24);>
-    <div class="container-fluid p-0">
+<div class="bg-dark">
+    <div class="container-fluid p-0"
+        style="background: linear-gradient(to bottom, #212529, #f9ca24);">
 
     
         {{-- Carousel --}}
@@ -32,7 +24,9 @@
         </section>
 
         {{-- Lista de ingressos --}}
-        <div class=" bg-warning">
+        <div 
+        style= "background: linear-gradient(to bottom, #f9ca24, #dbb321ff, #f9ca24);
+                background-color: #f4eb4a">
             <div class="card-body">
                 @include('home.list')
             </div>

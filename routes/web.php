@@ -23,6 +23,8 @@ Route::middleware([CheckIfLogged::class])->group(function() {
 
     Route::get('/comprar-ingressos', [TicketController::class, 'index'])->name('buy-tickets');
 
+    Route::get('/sobre-evento', [TicketController::class, 'indexAboutEvent'])->name('about-shows');
+
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
 
     Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');

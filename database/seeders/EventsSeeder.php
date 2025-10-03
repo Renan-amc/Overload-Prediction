@@ -20,7 +20,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Parque Central',
                 'start_date' => '2025-09-15 18:00:00',
                 'end_date' => '2025-09-15 23:59:00',
-                'image' => 'events/ticket_black_sabbath.png'
+                'image' => 'events/ticket_black_sabbath.png',
+                'imageShow' => 'imageShows/black_sabbath.png'
             ]
         );
 
@@ -31,7 +32,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Centro de Convenções',
                 'start_date' => '2025-10-05 09:00:00',
                 'end_date' => '2025-10-07 18:00:00',
-                'image' => 'events/ticket_soad.png'
+                'image' => 'events/ticket_soad.png',
+                'imageShow' => 'imageShows/soad.png'
             ]
         );
 
@@ -42,7 +44,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Teatro Municipal',
                 'start_date' => '2025-11-20 20:00:00',
                 'end_date' => '2025-11-20 22:30:00',
-                'image' => 'events/ticket_gojira.png'
+                'image' => 'events/ticket_gojira.png',
+                'imageShow' => 'imageShows/gojira.png'
             ]
         );
 
@@ -53,7 +56,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Arena Rock Hall',
                 'start_date' => '2025-09-25 21:00:00',
                 'end_date' => '2025-09-25 23:30:00',
-                'image' => 'events/ticket_nirvana.png'
+                'image' => 'events/ticket_nirvana.png',
+                'imageShow' => 'imageShows/nirvana.png'
             ]
         );
 
@@ -64,7 +68,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Estádio da Cidade',
                 'start_date' => '2025-10-05 20:30:00',
                 'end_date' => '2025-10-05 23:00:00',
-                'image' => 'events/ticket_limpbizkit.png'
+                'image' => 'events/ticket_limpbizkit.png',
+                'imageShow' => 'imageShows/limp-bizkit.png'
             ]
         );
 
@@ -75,7 +80,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Parque das Nações',
                 'start_date' => '2025-10-18 19:30:00',
                 'end_date' => '2025-10-18 22:00:00',
-                'image' => 'events/ticket_rhcp.png'
+                'image' => 'events/ticket_rhcp.png',
+                'imageShow' => 'imageShows/rhcp.png'
             ]
         );
 
@@ -86,7 +92,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Estádio Municipal',
                 'start_date' => '2025-11-01 20:00:00',
                 'end_date' => '2025-11-01 22:30:00',
-                'image' => 'events/ticket_kiss.png'
+                'image' => 'events/ticket_kiss.png',
+                'imageShow' => 'imageShows/kiss.png'
             ]
         );
 
@@ -97,7 +104,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Auditório Nacional',
                 'start_date' => '2025-11-10 20:00:00',
                 'end_date' => '2025-11-10 22:15:00',
-                'image' => 'events/ticket_radiohead.png'
+                'image' => 'events/ticket_radiohead.png',
+                'imageShow' => 'imageShows/radiohead.png'
             ]
         );   
 
@@ -108,7 +116,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Teatro das Artes',
                 'start_date' => '2025-11-15 21:00:00',
                 'end_date' => '2025-11-15 23:00:00',
-                'image' => 'events/ticket_deftones.png'
+                'image' => 'events/ticket_deftones.png',
+                'imageShow' => 'imageShows/deftones.png'
             ]
         );
 
@@ -119,7 +128,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Arena Internacional',
                 'start_date' => '2025-11-25 20:30:00',
                 'end_date' => '2025-11-25 23:00:00',
-                'image' => 'events/ticket_scorpions.png'
+                'image' => 'events/ticket_scorpions.png',
+                'imageShow' => 'imageShows/scorpions.png'
             ]
         );
 
@@ -130,7 +140,8 @@ class EventsSeeder extends Seeder
                 'location' => 'Estádio Central',
                 'start_date' => '2025-12-01 20:00:00',
                 'end_date' => '2025-12-01 22:30:00',
-                'image' => 'events/ticket_queen.png'
+                'image' => 'events/ticket_queen.png',
+                'imageShow' => 'imageShows/queen.png'
             ]
         );
 

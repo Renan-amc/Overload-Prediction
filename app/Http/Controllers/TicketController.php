@@ -23,4 +23,14 @@ class TicketController extends Controller
 
         return view('tickets.index', ['tickets' => $tickets]);
     }
+
+    public function indexAboutEvent(Request $request): View 
+    {
+        $tickets = Ticket::with('event')
+            ->where('event_id', $request->event) 
+            ->get(); 
+
+        return view('about-shows.index', ['tickets' => $tickets]);
+    }
+
 }
