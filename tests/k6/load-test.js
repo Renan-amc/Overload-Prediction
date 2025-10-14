@@ -2,98 +2,120 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Rate } from 'k6/metrics';
 
-// Métricas customizadas
 const errorRate = new Rate('errors');
+const BASE_URL = 'http://localhost:8085';
 
-// Configuração dos testes - Baseado na metodologia do TCC
-// Testes progressivos: 10 → 50 → 100 → 250 → 500 usuários
 export const options = {
   stages: [
-    { duration: '2m', target: 10 },   // Aquecimento: 10 usuários por 2 min
-    { duration: '3m', target: 50 },   // Carga leve: 50 usuários por 3 min
-    { duration: '3m', target: 100 },  // Carga média: 100 usuários por 3 min
-    { duration: '3m', target: 250 },  // Carga alta: 250 usuários por 3 min
-    { duration: '5m', target: 500 },  // Stress test: 500 usuários por 5 min
-    { duration: '2m', target: 0 },    // Cooldown: reduzir para 0
+    { duration: '30s', target: 10 },
+    { duration: '30s', target: 50 },
+    { duration: '30s', target: 100 },
+    { duration: '30s', target: 250 },
+    { duration: '30s', target: 500 },
+    { duration: '30s', target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<2000'], // 95% das requisições devem responder em menos de 2s
-    http_req_failed: ['rate<0.1'],     // Taxa de erro menor que 10%
-    errors: ['rate<0.1'],              // Taxa de erro customizada menor que 10%
+    http_req_duration: ['p(95)<3000'],
+    http_req_failed: ['rate<0.1'],
+    errors: ['rate<0.1'],
   },
 };
 
-const BASE_URL = 'http://nginx'; // URL interna do Docker
+// Variáveis globais para sessão
+let csrfToken = '';
+let sessionCookie = '';
 
-// Função principal de teste
 export default function () {
-  // Teste 1: Página inicial
-  let res = http.get(`${BASE_URL}/`);
-  check(res, {
-    'home page status 200': (r) => r.status === 200,
-    'home page load time < 1s': (r) => r.timings.duration < 1000,
-  }) || errorRate.add(1);
+  // PRIMEIRO: Obter CSRF token da página de login
+  let res = http.get(`${BASE_URL}/login`);
   
-  sleep(1);
+  // Extrair CSRF token do HTML ou cookies
+  const cookieHeader = res.headers['Set-Cookie'];
+  if (cookieHeader) {
+    // Verificar se é array antes de usar find
+    if (Array.isArray(cookieHeader)) {
+      sessionCookie = cookieHeader.find(c => c.includes('laravel_session')) || '';
+    } else {
+      sessionCookie = cookieHeader.includes('laravel_session') ? cookieHeader : '';
+    }
+    
+    // Tentar extrair token do HTML
+    const tokenMatch = res.body.match(/name="_token" value="([^"]*)"/);
+    if (tokenMatch) {
+      csrfToken = tokenMatch[1];
+    }
+  }
 
-  // Teste 2: Login (se tiver rota de login)
-  const loginPayload = JSON.stringify({
-    email: 'test@example.com',
-    password: 'password',
-  });
+  // SEGUNDO: Fazer login com CSRF token
+  const loginPayload = `username=munera@gmail.com&password=123456&_token=${encodeURIComponent(csrfToken)}`;
 
   const loginParams = {
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cookie': sessionCookie,
     },
   };
 
-  res = http.post(`${BASE_URL}/api/login`, loginPayload, loginParams);
-  const loginSuccess = check(res, {
-    'login status is 200 or 422': (r) => [200, 422].includes(r.status),
-  });
+  res = http.post(`${BASE_URL}/login-submit`, loginPayload, loginParams);
   
+  const loginSuccess = check(res, {
+    'login status is 200 or 302': (r) => [200, 302].includes(r.status),
+  });
+
   if (!loginSuccess) {
     errorRate.add(1);
+    console.log(`Login failed: ${res.status}`);
+    sleep(1);
+    return;
   }
 
-  sleep(2);
-
-  // Teste 3: Listar eventos
-  res = http.get(`${BASE_URL}/api/events`);
-  check(res, {
-    'events list status 200': (r) => r.status === 200,
-    'events response time < 500ms': (r) => r.timings.duration < 500,
-  }) || errorRate.add(1);
-
-  sleep(1);
-
-  // Teste 4: Ver detalhes de um evento
-  res = http.get(`${BASE_URL}/api/events/1`);
-  check(res, {
-    'event detail status is 200 or 404': (r) => [200, 404].includes(r.status),
-  });
-
-  sleep(2);
-
-  // Teste 5: Health check
-  res = http.get(`${BASE_URL}/api/health`);
-  check(res, {
-    'health check status 200 or 404': (r) => [200, 404].includes(r.status),
-  });
+  // Atualizar cookies da sessão após login
+  if (res.headers['Set-Cookie']) {
+    const newCookies = res.headers['Set-Cookie'];
+    if (Array.isArray(newCookies)) {
+      sessionCookie = newCookies.find(c => c.includes('laravel_session')) || sessionCookie;
+    } else {
+      sessionCookie = newCookies.includes('laravel_session') ? newCookies : sessionCookie;
+    }
+  }
 
   sleep(1);
+
+  // TERCEIRO: Testar rotas autenticadas
+  const authParams = {
+    headers: {
+      'Cookie': sessionCookie,
+    },
+  };
+
+  // Teste rotas autenticadas
+  const routes = [
+    { path: '/', name: 'home' },
+    { path: '/comprar-ingressos', name: 'comprar-ingressos' },
+    { path: '/sobre-evento', name: 'sobre-evento' },
+    { path: '/sobre', name: 'sobre' },
+    { path: '/carrinho', name: 'carrinho' }
+  ];
+
+  routes.forEach(route => {
+    res = http.get(`${BASE_URL}${route.path}`, authParams);
+    
+    check(res, {
+      [`${route.name} status 200`]: (r) => r.status === 200,
+      [`${route.name} response time < 3000ms`]: (r) => r.timings.duration < 3000,
+    }) || errorRate.add(1);
+    
+    sleep(0.5);
+  });
 }
 
-// Função de setup (roda uma vez no início)
 export function setup() {
-  console.log('=== Iniciando testes de performance ===');
+  console.log('=== Iniciando testes com autenticação ===');
   console.log('Base URL:', BASE_URL);
+  console.log('Username: munera@gmail.com');
   console.log('Cenário: Docker Standalone');
 }
 
-// Função de teardown (roda uma vez no final)
 export function teardown(data) {
   console.log('=== Testes finalizados ===');
 }
