@@ -76,6 +76,19 @@ services:
     networks:
       - overload-network
 
+  # K6 - Testes de Performance
+  k6:
+    image: grafana/k6:latest
+    container_name: overload-k6
+    networks:
+      - overload-network
+    volumes:
+      - ./tests/k6:/scripts
+    profiles:
+      - testing
+    depends_on:
+      - nginx
+
 volumes:
   mysql-data:
     driver: local
