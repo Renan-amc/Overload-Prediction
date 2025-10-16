@@ -76,6 +76,34 @@ services:
     networks:
       - overload-network
 
+  # NetData - Monitoramento
+  netdata:
+    image: netdata/netdata:latest
+    container_name: overload-netdata
+    restart: unless-stopped
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdata-config:/etc/netdata
+      - netdata-lib:/var/lib/netdata
+      - netdata-cache:/var/cache/netdata
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/os-release:/host/etc/os-release:ro
+    networks:
+      - overload-network
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - NETDATA_DISABLE_CLOUD=1
+
   # K6 - Testes de Performance
   k6:
     image: grafana/k6:latest
@@ -93,6 +121,12 @@ volumes:
   mysql-data:
     driver: local
   redis-data:
+    driver: local
+  netdata-config:
+    driver: local
+  netdata-lib:
+    driver: local
+  netdata-cache:
     driver: local
 
 networks:
