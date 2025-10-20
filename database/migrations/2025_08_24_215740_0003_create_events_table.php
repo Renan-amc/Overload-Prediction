@@ -19,6 +19,8 @@ return new class extends Migration
                 $table->string('location', 150);
                 $table->dateTime('start_date');
                 $table->dateTime('end_date')->nullable();
+                $table->string('image');
+                $table->string('imageShow');
                 $table->timestamps();
             });
         }
