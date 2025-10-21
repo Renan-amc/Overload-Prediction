@@ -118,3 +118,32 @@ echo "🚀 Testando aplicação..."
 curl -I http://localhost:8085/ 2>/dev/null | head -1
 
 echo "🎉 Configuração completa! Acesse: http://localhost:8085/"
+
+sudo sed -i 's/^memory_limit = .*/memory_limit = 512M/' /etc/php/8.2/fpm/php.ini
+sudo sed -i 's/^max_execution_time = .*/max_execution_time = 60/' /etc/php/8.2/fpm/php.ini
+sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 100M/' /etc/php/8.2/fpm/php.ini
+sudo sed -i 's/^post_max_size = .*/post_max_size = 100M/' /etc/php/8.2/fpm/php.ini
+
+# OPcache - criar arquivo separado
+sudo tee /etc/php/8.2/mods-available/opcache.ini > /dev/null <<'EOF'
+opcache.enable=1
+opcache.memory_consumption=256
+opcache.interned_strings_buffer=16
+opcache.max_accelerated_files=10000
+opcache.validate_timestamps=0
+opcache.save_comments=1
+opcache.fast_shutdown=1
+EOF
+
+sudo sed -i 's/^pm = .*/pm = dynamic/' /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i 's/^pm.max_children = .*/pm.max_children = 50/' /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i 's/^pm.start_servers = .*/pm.start_servers = 10/' /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i 's/^pm.min_spare_servers = .*/pm.min_spare_servers = 5/' /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i 's/^pm.max_spare_servers = .*/pm.max_spare_servers = 20/' /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i 's/^pm.max_requests = .*/pm.max_requests = 500/' /etc/php/8.2/fpm/pool.d/www.conf
+
+# Manter socket (não mudar para 9000) e adicionar clear_env
+sudo sed -i 's/^listen = .*/listen = \/var\/run\/php\/php8.2-fpm.sock/' /etc/php/8.2/fpm/pool.d/www.conf
+echo "clear_env = no" | sudo tee -a /etc/php/8.2/fpm/pool.d/www.conf
+
+sudo systemctl restart php8.2-fpm
