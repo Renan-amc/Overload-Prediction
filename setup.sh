@@ -147,3 +147,92 @@ sudo sed -i 's/^listen = .*/listen = \/var\/run\/php\/php8.2-fpm.sock/' /etc/php
 echo "clear_env = no" | sudo tee -a /etc/php/8.2/fpm/pool.d/www.conf
 
 sudo systemctl restart php8.2-fpm
+
+echo ""
+echo "=== INSTALANDO NETDATA ==="
+
+# Instalar Netdata via script oficial (método recomendado)
+wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh
+sudo sh /tmp/netdata-kickstart.sh --non-interactive --disable-telemetry
+
+# Aguardar o Netdata iniciar
+sleep 5
+
+# Configurar Netdata para monitorar PHP-FPM
+echo "📊 Configurando monitoramento PHP-FPM..."
+sudo tee /etc/netdata/go.d/phpfpm.conf > /dev/null <<'EOF'
+jobs:
+  - name: local
+    url: unix:/var/run/php/php8.2-fpm.sock
+    fcgi_path: /status
+EOF
+
+# Habilitar status do PHP-FPM
+if ! grep -q "^pm.status_path" /etc/php/8.2/fpm/pool.d/www.conf; then
+    echo "pm.status_path = /status" | sudo tee -a /etc/php/8.2/fpm/pool.d/www.conf
+fi
+
+# Configurar Netdata para monitorar Nginx
+echo "📊 Configurando monitoramento Nginx..."
+sudo tee /etc/netdata/go.d/nginx.conf > /dev/null <<'EOF'
+jobs:
+  - name: local
+    url: http://127.0.0.1:8086/stub_status
+EOF
+
+# Adicionar endpoint de status no Nginx
+sudo tee /etc/nginx/sites-available/nginx-status > /dev/null <<'EOF'
+server {
+    listen 8086;
+    server_name localhost;
+    
+    location /stub_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
+    }
+}
+EOF
+
+sudo ln -sf /etc/nginx/sites-available/nginx-status /etc/nginx/sites-enabled/
+
+# Configurar Netdata para monitorar MySQL
+echo "📊 Configurando monitoramento MySQL..."
+sudo mysql -e "CREATE USER IF NOT EXISTS 'netdata'@'localhost';"
+sudo mysql -e "GRANT USAGE, REPLICATION CLIENT, PROCESS ON *.* TO 'netdata'@'localhost';"
+sudo mysql -e "FLUSH PRIVILEGES;"
+
+sudo tee /etc/netdata/go.d/mysql.conf > /dev/null <<'EOF'
+jobs:
+  - name: local
+    dsn: netdata@unix(/var/run/mysqld/mysqld.sock)/
+EOF
+
+# Configurar Netdata para monitorar Redis
+echo "📊 Configurando monitoramento Redis..."
+sudo tee /etc/netdata/go.d/redis.conf > /dev/null <<'EOF'
+jobs:
+  - name: local
+    address: 127.0.0.1:6379
+EOF
+
+# Reiniciar todos os serviços
+echo "🔄 Reiniciando serviços..."
+sudo systemctl restart php8.2-fpm
+sudo systemctl restart nginx
+sudo systemctl restart netdata
+
+# Verificar status
+echo ""
+echo "📊 STATUS DOS SERVIÇOS:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "Laravel:  http://localhost:8085/"
+echo "Netdata:  http://localhost:19999/"
+echo ""
+echo "PHP-FPM:  $(systemctl is-active php8.2-fpm)"
+echo "Nginx:    $(systemctl is-active nginx)"
+echo "MySQL:    $(systemctl is-active mysql)"
+echo "Redis:    $(systemctl is-active redis)"
+echo "Netdata:  $(systemctl is-active netdata)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
