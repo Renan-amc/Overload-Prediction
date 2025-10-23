@@ -91,10 +91,44 @@ services:
     networks:
       - overload-network
 
+  netdata:
+      image: netdata/netdata:latest
+      deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+      ports:
+        - target: 19999
+          published: 19999
+          protocol: tcp
+          mode: host
+      cap_add:
+        - SYS_PTRACE
+        - SYS_ADMIN
+      security_opt:
+        - apparmor:unconfined
+      volumes:
+        - netdataconfig:/etc/netdata
+        - netdatalib:/var/lib/netdata
+        - netdatacache:/var/cache/netdata
+        - /etc/passwd:/host/etc/passwd:ro
+        - /etc/group:/host/etc/group:ro
+        - /proc:/host/proc:ro
+        - /sys:/host/sys:ro
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+      networks:
+        - overload-network
+
 volumes:
   mysql-data:
     driver: local
   redis-data:
+    driver: local
+  netdataconfig:
+    driver: local
+  netdatalib:
+    driver: local
+  netdatacache:
     driver: local
 
 networks:
