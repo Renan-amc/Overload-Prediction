@@ -53,4 +53,28 @@ sudo gpg -k
 sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
 echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
 sudo apt-get update
+<<<<<<< HEAD
 sudo apt-get install k6
+=======
+sudo apt-get install k6 -y
+
+# Reiniciar todos os serviços
+echo "🔄 Reiniciando serviços..."
+sudo systemctl restart php8.2-fpm
+sudo systemctl restart nginx
+sudo systemctl restart netdata
+
+# Verificar status
+echo ""
+echo "📊 STATUS DOS SERVIÇOS:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "Laravel:  http://localhost:8085/"
+echo "Netdata:  http://localhost:19999/"
+echo ""
+echo "PHP-FPM:  $(systemctl is-active php8.2-fpm)"
+echo "Nginx:    $(systemctl is-active nginx)"
+echo "MySQL:    $(systemctl is-active mysql)"
+echo "Redis:    $(systemctl is-active redis)"
+echo "Netdata:  $(systemctl is-active netdata)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+>>>>>>> ac415aeeb910a8818ff6303190bd4297b00d76a3
