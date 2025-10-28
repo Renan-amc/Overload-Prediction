@@ -226,6 +226,7 @@ echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.i
 sudo apt-get update
 sudo apt-get install k6 -y
 
+<<<<<<< HEAD
 # Reiniciar todos os serviços
 echo "🔄 Reiniciando serviços..."
 sudo systemctl restart php8.2-fpm
@@ -245,3 +246,6 @@ echo "MySQL:    $(systemctl is-active mysql)"
 echo "Redis:    $(systemctl is-active redis)"
 echo "Netdata:  $(systemctl is-active netdata)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+=======
+docker exec overload-netdata cat /var/lib/netdata/netdata_random_session_id
+>>>>>>> 7b6106473bbc8fd8a0f9624dfa83fbe5cb1d5b5b
