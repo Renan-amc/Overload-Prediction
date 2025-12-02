@@ -113,7 +113,7 @@ export function setup() {
   console.log('=== Iniciando testes com autenticação ===');
   console.log('Base URL:', BASE_URL);
   console.log('Username: munera@gmail.com');
-  console.log('Cenário: Docker Standalone');
+  console.log('Cenário: Bare Metal (Nginx + PHP-FPM)');
 }
 
 export function teardown(data) {
