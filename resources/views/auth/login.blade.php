@@ -55,7 +55,7 @@
                             @endif
 
                             <div class="mt-5 text-yellow container fs-6 text-center">
-                                &copy; {{ date('Y') }} Notes.
+                                &copy; {{ date('Y') }} BeeTickets.
                             </div>
                         </div>
                     </div>

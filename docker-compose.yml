@@ -1,0 +1,121 @@
+version: '3.8'
+
+services:
+  # PHP-FPM (Aplicação Laravel)
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: overload-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - overload-network
+    depends_on:
+      - mysql
+      - redis
+
+  # Workspace (para rodar comandos)
+  workspace:
+    build:
+      context: .
+      dockerfile: docker/workspace/Dockerfile
+    container_name: overload-workspace
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - overload-network
+    tty: true
+    stdin_open: true
+
+  # Nginx
+  nginx:
+    image: nginx:alpine
+    container_name: overload-nginx
+    restart: unless-stopped
+    ports:
+      - "8085:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - overload-network
+    depends_on:
+      - app
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: overload-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_DATABASE:-overload}
+      MYSQL_USER: ${DB_USERNAME:-overload_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - overload-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  # Redis
+  redis:
+    image: redis:alpine
+    container_name: overload-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - overload-network
+
+  # NetData - Monitoramento
+  netdata:
+    image: netdata/netdata:latest
+    container_name: overload-netdata
+    restart: unless-stopped
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdata-config:/etc/netdata
+      - netdata-lib:/var/lib/netdata
+      - netdata-cache:/var/cache/netdata
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/os-release:/host/etc/os-release:ro
+    networks:
+      - overload-network
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - NETDATA_DISABLE_CLOUD=1
+
+volumes:
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  netdata-config:
+    driver: local
+  netdata-lib:
+    driver: local
+  netdata-cache:
+    driver: local
+
+networks:
+  overload-network:
+    driver: bridge
