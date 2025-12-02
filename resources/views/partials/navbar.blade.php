@@ -22,6 +22,9 @@
                 Comprar Ingressos
             </a>
             <a class="nav-link px-3 py-2 mx-2 text-dark fw-semibold bg-warning rounded-pill" 
+                @if (Request::is('sobre'))
+                    style="border: 3px solid rgb(183, 83, 207);" 
+                @endif
                 href="{{ route('about') }}">
                 Sobre
             </a>

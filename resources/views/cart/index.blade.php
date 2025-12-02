@@ -17,15 +17,15 @@
                         <div class="alert alert-info">
                             Seu carrinho está vazio
                         </div>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Voltar para Home</a>
+                        <a href="{{ route('home') }}" class="btn btn-primary">Tela Inicial</a>
                     @else
                         <div class="table-responsive border border-2 border-warning shadow-sm">
                             <table class="table table-dark">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Qty</th>
-                                        <th scope="col">Price</th>
+                                        <th scope="col">Produto</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Preço</th>
                                         <th scope="col">Subtotal</th>
                                     </tr>
                                 </thead>
@@ -65,19 +65,19 @@
                                                         value="{{ $item['qty'] }}"
                                                     >
                                                     <button type="submit" class="btn btn-warning">
-                                                        <i class="fas fa-pencil"></i> atualizar                                                
+                                                        <i class="fas fa-pencil"></i> Atualizar                                                
                                                     </button>
                                                 </form>
                                             </td>
 
                                             {{-- Mostrar preço unitário do ingresso --}}
                                             <td class="fw-bold">
-                                                    {{ $item['price'] }}
+                                                    {{ $item['price'] ? number_format($item['price'],2,',','.') : '' }}
                                             </td>
 
                                             {{-- Mostrar preço subtotal dos ingressos --}}
                                             <td class="fw-bold">
-                                                ${{ $item['price'] * $item['qty'] }}
+                                                R${{ $item['price'] * $item['qty'] }}
                                             </td>
 
 
@@ -92,7 +92,7 @@
                                                         type="hidden" name="product_id" 
                                                         value="{{ $item['id'] }}">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                        <i class="fas fa-xmark"></i> remover                                              
+                                                        <i class="fas fa-xmark"></i> Remover                                              
                                                     </button>
                                                 </form>
                                             </td>
@@ -107,8 +107,8 @@
                                         </td>
                                         
                                         <td colspan="2"
-                                            class="text-danger fs-5">
-                                            ${{ session()->get('cartItemsTotal') }}
+                                            class="text-warning fs-5">
+                                            R${{ session()->get('cartItemsTotal') }}
                                         </td>
                                     </tr>
                                 </tfoot>
